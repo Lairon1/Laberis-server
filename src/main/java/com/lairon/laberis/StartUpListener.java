@@ -9,6 +9,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 
 /**
  * ВНИМАНИЕ ОПАСТНО
@@ -26,6 +28,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     @Override
     @SneakyThrows
     public void onApplicationEvent(ApplicationReadyEvent event) {
+        if(productRepository.findAll().iterator().hasNext()) return;
         ObjectMapper objectMapper = new ObjectMapper();
         Product[] products = objectMapper.readValue(defaultProducts, Product[].class);
 
